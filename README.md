@@ -1,69 +1,122 @@
-# React + TypeScript + Vite
+# 💡 Mathool - Math Utility Tool
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple full-stack web application that allows users to:
 
-Currently, two official plugins are available:
+* Check if a number is **prime**
+* Compute the **factorial** of a number
+* Perform both in a single request
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Built with **Spring Boot** for the backend and **React + TypeScript + MUI** for the frontend.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🫠 Live Demo
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+* **Frontend:** [https://mathool.netlify.app/](https://mathool.netlify.app/)
+* **Backend API:** [https://mathool.onrender.com](https://mathool.onrender.com)
+* **Docker Image:** [DockerHub Repo](https://hub.docker.com/r/pogiii/mathool)
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🚀 Quick Start (Run Locally)
+
+### Backend - Spring Boot
+
+```bash
+# Clone the repository
+git clone https://github.com/AaronCallanga/mathool-server.git
+cd mathool-server
+
+# Build the JAR (skip tests)
+./mvnw clean package -DskipTests # or use
+mvn clean package
+
+# Run the app
+java -jar target/mathool-0.0.1-SNAPSHOT.jar
+
+# OR run using Docker
+docker build -t mathool-backend .
+docker run -p 8080:8080 mathool-backend
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+#### REST Endpoints
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+| Endpoint                                | Method | Description              |
+| --------------------------------------- | ------ | ------------------------ |
+| `/api/v1/math/prime?number=5`           | GET    | Check if number is prime |
+| `/api/v1/math/factorial?number=5`       | GET    | Calculate factorial      |
+| `/api/v1/math/prime-factorial?number=5` | GET    | Get both in one request  |
 
-export default tseslint.config([
-  globalIgnores(['dist']),
+### Frontend - React + Vite
+
+```bash
+# Clone the repository
+git clone https://github.com/AaronCallanga/mathool-client.git
+cd mathool-client
+
+# Install dependencies
+npm install
+
+#  Modify API Endpoint (uncomment the localhost url, comment the onrender url)
+Example:
+const modeOptions: Mode[] = [
   {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
+    label: "Check Prime",
+    url: //`https://mathool.onrender.com/api/v1/math/prime?number=`,
+    "http://localhost:8080/api/v1/math/prime?number=",
   },
-])
+  {
+    label: "Calculate Factorial",
+    url: //`https://mathool.onrender.com/api/v1/math/factorial?number=`,
+    "http://localhost:8080/api/v1/math/factorial?number=",
+  },
+  {
+    label: "Prime & Factorial",
+    url: //`https://mathool.onrender.com/api/v1/math/prime-factorial?number=`
+    "http://localhost:8080/api/v1/math/prime-factorial?number=",
+  },
+];
+
+# Start the development server
+npm run dev
 ```
+
+* Runs on: `http://localhost:5173`
+* Connects to backend on `http://localhost:8080`
+
+---
+
+## 📚 Project Structure
+
+### Backend
+
+```
+mathool-server/
+├── controller/
+├── service/
+├── dto/
+├── config/
+└── MathoolApplication.java
+```
+
+### Frontend
+
+```
+mathool-client/
+├── components/
+├── types/
+├── App.tsx
+└── main.tsx
+```
+
+---
+
+## 📄 License
+
+MIT License. Feel free to use, modify, and share!
+
+---
+
+## ✨ Author
+
+Made with ❤️ by [Aaron Callanga](https://github.com/AaronCallanga)
