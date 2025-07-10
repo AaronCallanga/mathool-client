@@ -12,7 +12,7 @@ const modeOptions: Mode[] = [
   },
   {
     label: "Calculate Factorial",
-    url: `https://mathool.onrender.com/api/v1/math/prime?number=`,
+    url: `https://mathool.onrender.com/api/v1/math/factorial?number=`,
     //"http://localhost:8080/api/v1/math/factorial?number=",
   },
   {
