@@ -7,15 +7,18 @@ import type { FormProps } from "../types/PropsTypes";
 const modeOptions: Mode[] = [
   {
     label: "Check Prime",
-    url: "http://localhost:8080/api/v1/math/prime?number=",
+    url: `https://mathool.onrender.com/api/v1/math/prime?number=`,
+    //"http://localhost:8080/api/v1/math/prime?number=",
   },
   {
     label: "Calculate Factorial",
-    url: "http://localhost:8080/api/v1/math/factorial?number=",
+    url: `https://mathool.onrender.com/api/v1/math/prime?number=`,
+    //"http://localhost:8080/api/v1/math/factorial?number=",
   },
   {
     label: "Prime & Factorial",
-    url: "http://localhost:8080/api/v1/math/prime-factorial?number=",
+    url: `https://mathool.onrender.com/api/v1/math/prime-factorial?number=`
+    //"http://localhost:8080/api/v1/math/prime-factorial?number=",
   },
 ];
 

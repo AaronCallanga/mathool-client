@@ -55,7 +55,8 @@ function App() {
   const handleCalculateFactorial = async (number: number, index: number) => {
     try {
       const response = await fetch(
-        `http://localhost:8080/api/v1/math/factorial?number=${number}`
+        //`http://localhost:8080/api/v1/math/factorial?number=${number}`
+        `https://mathool.onrender.com/api/v1/math/factorial?number=${number}`
       );
       const result = await response.json();
       if (!response.ok) {
@@ -85,7 +86,8 @@ function App() {
   const handleCheckPrime = async (number: number, index: number) => {
     try {
       const response = await fetch(
-        `http://localhost:8080/api/v1/math/prime?number=${number}`
+        //`http://localhost:8080/api/v1/math/prime?number=${number}`
+        `https://mathool.onrender.com/api/v1/math/prime?number=${number}`
       );
       const result = await response.json();
       if (!response.ok) {
