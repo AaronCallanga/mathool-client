@@ -10,7 +10,12 @@ import {
 } from "@mui/material";
 import type { ResultHistoryProps } from "../types/PropsTypes";
 
-const ResultHistory = ({ history, onClickFactorial, onClickPrime }: ResultHistoryProps) => {
+const ResultHistory = ({
+  history,
+  onClickFactorial,
+  onClickPrime,
+}: ResultHistoryProps) => {
+  // If no history is present, don't render the component
   if (history.length === 0) return null;
 
   return (
@@ -19,6 +24,7 @@ const ResultHistory = ({ history, onClickFactorial, onClickPrime }: ResultHistor
         📜 Matho.oL History
       </Typography>
 
+      {/* Header row labels */}
       <Box
         display="grid"
         gridTemplateColumns="1fr 2fr 2fr 6fr"
@@ -31,6 +37,7 @@ const ResultHistory = ({ history, onClickFactorial, onClickPrime }: ResultHistor
         <Typography>Factorial</Typography>
       </Box>
 
+      {/* Render each history entry */}
       <List>
         {history.map((entry, index) => (
           <div key={index}>
@@ -45,29 +52,40 @@ const ResultHistory = ({ history, onClickFactorial, onClickPrime }: ResultHistor
               >
                 <Typography>#{index + 1}</Typography>
                 <Typography>{entry.number}</Typography>
-                { entry.prime !== undefined && entry.prime !== null ?
-                <Chip
-                  label={
-                    entry.prime !== undefined && entry.prime !== null
-                      ? entry.prime
-                        ? "Prime"
-                        : "Not Prime"
-                      : ""
-                  }
-                  color={
-                    entry.prime !== undefined && entry.prime !== null
-                      ? entry.prime
-                        ? "success"
-                        : "error"
-                      : "default"
-                  }
-                  size="small"
-                /> : <Button onClick={() => onClickPrime(entry.number, index)}>Check Prime</Button>
-                }
-                  {entry.factorial !== undefined && entry.factorial !== null
-                    ? <Typography>{entry.factorial}</Typography>
-                    : <Button onClick={() => onClickFactorial(entry.number, index)}>Calculate Factorial</Button>}
-                
+
+                {/* Display prime result or an action button to check if the number is prime*/}
+                {entry.prime !== undefined && entry.prime !== null ? (
+                  <Chip
+                    label={
+                      entry.prime !== undefined && entry.prime !== null
+                        ? entry.prime
+                          ? "Prime"
+                          : "Not Prime"
+                        : ""
+                    }
+                    color={
+                      entry.prime !== undefined && entry.prime !== null
+                        ? entry.prime
+                          ? "success"
+                          : "error"
+                        : "default"
+                    }
+                    size="small"
+                  />
+                ) : (
+                  <Button onClick={() => onClickPrime(entry.number, index)}>
+                    Check Prime
+                  </Button>
+                )}
+
+                {/* Display factorial result or an action button to calculate the factorial of the number */}
+                {entry.factorial !== undefined && entry.factorial !== null ? (
+                  <Typography>{entry.factorial}</Typography>
+                ) : (
+                  <Button onClick={() => onClickFactorial(entry.number, index)}>
+                    Calculate Factorial
+                  </Button>
+                )}
               </Box>
             </ListItem>
             {index < history.length - 1 && <Divider sx={{ my: 1 }} />}

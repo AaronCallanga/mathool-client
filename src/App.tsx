@@ -9,9 +9,12 @@ import { Box } from "@mui/material";
 import Header from "./component/Header";
 
 function App() {
+  // Holds the current result being shown
   const [data, setData] = useState<PrimeAndFactorialResponse | null>(null);
+  // Holds the entire history of results
   const [history, setHistory] = useState<PrimeAndFactorialResponse[]>([]);
 
+  // Load history of results from the local storage once component render
   useEffect(() => {
     const results = localStorage.getItem("Results");
     if (results) {
@@ -19,6 +22,12 @@ function App() {
     }
   }, []);
 
+  /*
+   * Handles submission from the Form.tsx.
+   * Sends a GET request to the backend depending on selected mode.
+   * Mode: (Check Prime, Calculate Factorial, Check Prime and Calculate Factorial at the same time)
+   * On success, updates current result and appends to history.
+   */
   const handleSubmit = async (number: number, url: string) => {
     try {
       const response = await fetch(url + number);
@@ -27,6 +36,7 @@ function App() {
         // If status is not OK, it's an error, throw with backend error message
         console.error("Validation error:", result);
 
+        // Format errorMessages based on type (from client or from server)
         const errorMessages = (() => {
           if (typeof result.message === "string") return result.message;
           if (typeof result.message === "object")
@@ -42,6 +52,8 @@ function App() {
       }
       console.log(result);
       setData(result);
+
+      // Update history and localStorage
       setHistory((prevHistory) => {
         const updatedHistory = [...prevHistory, result];
         localStorage.setItem("Results", JSON.stringify(updatedHistory)); // Save to local storage
@@ -52,6 +64,10 @@ function App() {
     }
   };
 
+  /*
+   * Recalculates factorial for a previously saved result.
+   * Useful when user initially only requested "Prime" check.
+   */
   const handleCalculateFactorial = async (number: number, index: number) => {
     try {
       const response = await fetch(
@@ -72,6 +88,7 @@ function App() {
       }
       console.log(result);
 
+      // Update that item in history
       const updatedHistory = history.map((item, i) =>
         i === index ? { ...item, factorial: result.factorial } : item
       );
@@ -83,6 +100,10 @@ function App() {
     }
   };
 
+  /*
+   * Rechecks if a number is prime for a previously saved result.
+   * Useful when user initially only requested to calculate factorial.
+   */
   const handleCheckPrime = async (number: number, index: number) => {
     try {
       const response = await fetch(
@@ -107,6 +128,7 @@ function App() {
         i === index ? { ...item, prime: result.prime } : item
       );
 
+      // Update that item in history
       setHistory(updatedHistory);
       localStorage.setItem("Results", JSON.stringify(updatedHistory));
     } catch (err) {
@@ -114,6 +136,7 @@ function App() {
     }
   };
 
+  // Clears the entire result history.
   const handleClearHistory = () => {
     localStorage.removeItem("Results");
     setHistory([]);
@@ -132,9 +155,14 @@ function App() {
           alignItems: "center",
         }}
       >
+        {/* Form handles new input and fetch requests */}
         <Form onSubmit={handleSubmit} onClear={handleClearHistory} />
+
+        {/* Displays current result */}
         <ResultDisplay data={data} />
       </Box>
+
+      {/* Displays all past results history */}
       <ResultHistory
         history={history}
         onClickFactorial={handleCalculateFactorial}

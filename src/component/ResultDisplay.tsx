@@ -11,6 +11,7 @@ const ResultDisplay = ({ data }: ResultDisplayProps) => {
 
       <Divider sx={{ mb: 2 }} />
 
+      {/* Display the inputted number */}
       <Stack spacing={2}>
         <Box>
           <Typography variant="subtitle1" color="text.secondary">
@@ -21,6 +22,7 @@ const ResultDisplay = ({ data }: ResultDisplayProps) => {
           </Typography>
         </Box>
 
+        {/* Display the prime result */}
         <Box>
           <Typography variant="subtitle1" color="text.secondary">
             Is Prime:
@@ -38,6 +40,7 @@ const ResultDisplay = ({ data }: ResultDisplayProps) => {
           />
         </Box>
 
+        {/* Display the factorial result */}
         <Box>
           <Typography variant="subtitle1" color="text.secondary">
             Factorial:
